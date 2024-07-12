@@ -1,22 +1,74 @@
-import { Flex, Heading, Spacer } from '@chakra-ui/react'
-import { FaLaptopHouse } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+'use client'
 
-const NavBar = () => {
-  return (
-    <Flex background="rgba(0,0,0,0.28)" color="#fff">
-      <Flex px="2rem">
-        <Link to="/">
-        <Flex as="button" color="#FE4F00" transition="0.4s"_hover={{color: "#FE6F00"}} h="80px" w="100%" alignItems="center">
-          <Heading color="#fff" fontFamily='Share Tech'>PcGamerHouse</Heading>
-          <FaLaptopHouse size="40px"/>
-        </Flex>
-        </Link>
-        
-      </Flex>
-      <Spacer/>
-    </Flex>
-)
+import {
+  Box,
+  Flex,
+  Button,
+  useColorModeValue,
+  Stack,
+  useColorMode,
+  Heading,
+  Menu,
+  MenuButton,
+} from '@chakra-ui/react'
+import { MoonIcon, SunIcon } from '@chakra-ui/icons'
+import { FaLaptopHouse } from 'react-icons/fa'
+
+interface Props {
+  children: React.ReactNode
 }
 
-export default NavBar
+const NavLink = (props: Props) => {
+  const { children } = props
+
+  return (
+    <Box
+      as="a"
+      px={2}
+      py={1}
+      rounded={'md'}
+      _hover={{
+        textDecoration: 'none',
+        bg: useColorModeValue('rgba(255, 255, 255, 0.80)', 'rgba(0, 0, 0, 0.24)'),
+      }}
+      href={'#'}>
+      {children}
+    </Box>
+  )
+}
+
+export default function NavBar() {
+  const { colorMode, toggleColorMode } = useColorMode()
+  return (
+    <>
+      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+          <Flex>
+            <Heading fontFamily="Share Tech" display="flex" flexDirection="row" justifyContent="space-between" fontSize={{base:"20px", md:"30px"}} transition=".3s"_hover={{color:"#FE4F00"}}>
+              PcGamerHouse 
+              <FaLaptopHouse/>
+            </Heading>
+          </Flex>
+
+          <Flex alignItems={'center'}>
+            <Stack direction={'row'} spacing={7}>
+              <Button onClick={toggleColorMode}>
+                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              </Button>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={'full'}
+                  variant={'link'}
+                  cursor={'pointer'}
+                  minW={0}>
+                </MenuButton>
+
+              </Menu>
+            </Stack>
+          </Flex>
+        </Flex>
+      </Box>
+    </>
+  )
+}

@@ -7,7 +7,7 @@ import { Box } from "@chakra-ui/react"
 function App() {
 
   return (
-    <Box bg="rgba(0, 0, 0, 0.8)" fontFamily='Anek Gurmukhi' color="#fff">
+    <Box fontFamily='Anek Gurmukhi'>
     <NavBar />
     <Routes>
       <Route path="/" element={<Home />} />
